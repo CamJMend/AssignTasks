@@ -1,1 +1,11 @@
 /Users/cam/Desktop/AssignTasks/backend/src/main/java/com/entrega2/backend/BackendApplication.java
+/Users/cam/Desktop/AssignTasks/backend/src/main/java/com/entrega2/backend/config/FirebaseConfig.java
+/Users/cam/Desktop/AssignTasks/backend/src/main/java/com/entrega2/backend/controller/EventoController.java
+/Users/cam/Desktop/AssignTasks/backend/src/main/java/com/entrega2/backend/controller/TareaController.java
+/Users/cam/Desktop/AssignTasks/backend/src/main/java/com/entrega2/backend/controller/UsuarioController.java
+/Users/cam/Desktop/AssignTasks/backend/src/main/java/com/entrega2/backend/model/Evento.java
+/Users/cam/Desktop/AssignTasks/backend/src/main/java/com/entrega2/backend/model/Tarea.java
+/Users/cam/Desktop/AssignTasks/backend/src/main/java/com/entrega2/backend/model/Usuario.java
+/Users/cam/Desktop/AssignTasks/backend/src/main/java/com/entrega2/backend/service/EventoService.java
+/Users/cam/Desktop/AssignTasks/backend/src/main/java/com/entrega2/backend/service/TareaService.java
+/Users/cam/Desktop/AssignTasks/backend/src/main/java/com/entrega2/backend/service/UsuarioService.java
