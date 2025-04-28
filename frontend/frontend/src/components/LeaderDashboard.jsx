@@ -154,7 +154,7 @@ const LeaderDashboard = () => {
               <input 
                 type="checkbox" 
                 checked={nuevaTarea.critica} 
-                onChange={(e) => setNuevaTarea({...nuevaTarea, critica: e.target.checked})} 
+                onChange={(e) => setNuevaTarea({...nuevaTarea, critica: e.target.checked})}
               />
               Tarea crítica
             </label>
