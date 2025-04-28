@@ -45,7 +45,7 @@ public class TareaService {
     public void markAsCompleted(String id) throws ExecutionException, InterruptedException {
         Firestore db = FirestoreClient.getFirestore();
         DocumentReference docRef = db.collection(COLLECTION).document(id);
-        ApiFuture<WriteResult> result = docRef.update("completada", true);
-        result.get(); // Esperamos a que se complete
+        ApiFuture<WriteResult> result = docRef.update("finalizada", true);
+        result.get();
     }
 }

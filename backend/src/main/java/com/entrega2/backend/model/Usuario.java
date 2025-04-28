@@ -3,18 +3,20 @@ package com.entrega2.backend.model;
 public class Usuario {
     private String id;
     private String nombre;
-    private String rol;
     private String nivel;
     private boolean disponible;
+    private int tareasAsignadas;
 
-    public Usuario() {}
+    public Usuario() {
+        this.tareasAsignadas = 0;
+    }
 
-    public Usuario(String id, String nombre, String rol, String nivel, boolean disponible) {
+    public Usuario(String id, String nombre, String nivel, boolean disponible) {
         this.id = id;
         this.nombre = nombre;
-        this.rol = rol;
         this.nivel = nivel;
         this.disponible = disponible;
+        this.tareasAsignadas = 0;
     }
 
     // Getters y setters
@@ -34,14 +36,6 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public String getRol() {
-        return rol;
-    }
-
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
-
     public String getNivel() {
         return nivel;
     }
@@ -56,5 +50,23 @@ public class Usuario {
 
     public void setDisponible(boolean disponible) {
         this.disponible = disponible;
+    }
+    
+    public int getTareasAsignadas() {
+        return tareasAsignadas;
+    }
+    
+    public void setTareasAsignadas(int tareasAsignadas) {
+        this.tareasAsignadas = tareasAsignadas;
+    }
+    
+    public void incrementarTareas() {
+        this.tareasAsignadas++;
+    }
+    
+    public void decrementarTareas() {
+        if (this.tareasAsignadas > 0) {
+            this.tareasAsignadas--;
+        }
     }
 }
