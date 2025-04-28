@@ -10,7 +10,6 @@ const WorkerDashboard = ({ userId }) => {
   const [error, setError] = useState(null);
   
   useEffect(() => {
-    // Cargar datos del usuario
     axios.get(`http://localhost:8080/usuarios/${userId}`)
       .then(response => {
         console.log("Datos de usuario cargados:", response.data);
@@ -23,14 +22,12 @@ const WorkerDashboard = ({ userId }) => {
         setLoading(false);
       });
     
-    // Cargar tareas asignadas
     cargarTareas();
     
-    // Suscribirse a notificaciones de tareas
     const unsubscribe = subscribeTareas((mensaje) => {
       console.log("Notificación recibida:", mensaje);
       setNotificaciones(prev => [...prev, mensaje]);
-      // Recargar tareas cuando llegue una notificación
+      console.log(notificaciones);
       cargarTareas();
     });
     
@@ -43,7 +40,6 @@ const WorkerDashboard = ({ userId }) => {
     axios.get('http://localhost:8080/tareas')
       .then(response => {
         console.log("Tareas cargadas:", response.data);
-        // Filtrar solo las tareas asignadas a este usuario
         const misTareas = response.data.filter(tarea => tarea.asignadoA === userId);
         setTareas(misTareas);
       })
@@ -57,12 +53,23 @@ const WorkerDashboard = ({ userId }) => {
     axios.put(`http://localhost:8080/tareas/${tareaId}/completar`)
       .then(() => {
         console.log("Tarea marcada como completada:", tareaId);
-        cargarTareas();
+        
+        setTareas(prevTareas => 
+          prevTareas.map(tarea => 
+            tarea.id === tareaId ? { ...tarea, finalizada: true } : tarea
+          )
+        );
+  
+        setUsuario(prevUsuario => ({
+          ...prevUsuario,
+          tareasAsignadas: prevUsuario.tareasAsignadas - 1
+        }));
       })
       .catch(error => {
         console.error('Error al completar tarea:', error);
       });
   };
+  
   
   if (loading) {
     return <div className="loading">Cargando...</div>;
@@ -85,7 +92,7 @@ const WorkerDashboard = ({ userId }) => {
   return (
     <div className="worker-dashboard">
       <h1>Dashboard de {usuario.nombre}</h1>
-      <h2>Nivel: {usuario.nivel}</h2>
+      <h3>Nivel: {usuario.nivel}</h3>
       <h3>Estado: {usuario.disponible ? 'Disponible' : 'No disponible'}</h3>
       
       <div className="tareas-container">

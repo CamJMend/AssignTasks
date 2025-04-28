@@ -74,6 +74,7 @@ const LeaderDashboard = () => {
         console.log("Agente ejecutado con éxito");
         alert('Asignación automática completada');
         cargarTareas();
+        cargarUsuarios();
       })
       .catch(error => {
         console.error('Error al ejecutar agente:', error);
@@ -140,7 +141,7 @@ const LeaderDashboard = () => {
         <h2>Crear Nueva Tarea</h2>
         <form onSubmit={crearNuevaTarea}>
           <div className="form-group">
-            <label>Descripción:</label>
+            <label>Título</label>
             <input 
               type="text" 
               value={nuevaTarea.descripcion} 
@@ -179,6 +180,7 @@ const LeaderDashboard = () => {
                 <button 
                   className="toggle-btn"
                   onClick={() => cambiarEstadoUsuario(usuario)}
+                  disabled={usuario.tareasAsignadas >= 4}
                 >
                   {usuario.disponible ? 'Marcar no disponible' : 'Marcar disponible'}
                 </button>

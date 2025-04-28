@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 @Service
@@ -84,19 +83,5 @@ public class AgenteService {
                 .filter(u -> u.getTareasAsignadas() < 4)
                 .findFirst()
                 .orElse(null);
-    }
-    
-    // Crear una tarea para testing
-    public Tarea crearTareaEjemplo(String descripcion, boolean critica) throws ExecutionException, InterruptedException {
-        Tarea nuevaTarea = new Tarea();
-        nuevaTarea.setId(UUID.randomUUID().toString());
-        nuevaTarea.setDescripcion(descripcion);
-        nuevaTarea.setCritica(critica);
-        nuevaTarea.setFinalizada(false);
-        
-        tareaService.save(nuevaTarea);
-        webSocketService.enviarNotificacionTarea("Nueva tarea creada: " + descripcion);
-        
-        return nuevaTarea;
     }
 }

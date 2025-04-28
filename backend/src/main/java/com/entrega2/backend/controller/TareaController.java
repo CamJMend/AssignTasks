@@ -70,10 +70,4 @@ public class TareaController {
         agenteService.asignarTareasAutomaticamente();
         return "Asignación automática completada";
     }
-    
-    @PostMapping("/crear-ejemplo")
-    public Tarea crearTareaEjemplo(@RequestParam String descripcion, @RequestParam boolean critica) 
-            throws ExecutionException, InterruptedException {
-        return agenteService.crearTareaEjemplo(descripcion, critica);
-    }
 }

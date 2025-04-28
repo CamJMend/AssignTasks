@@ -1,6 +1,7 @@
 package com.entrega2.backend.service;
 
 import com.entrega2.backend.model.Tarea;
+import com.entrega2.backend.model.Usuario;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
@@ -44,8 +45,26 @@ public class TareaService {
 
     public void markAsCompleted(String id) throws ExecutionException, InterruptedException {
         Firestore db = FirestoreClient.getFirestore();
-        DocumentReference docRef = db.collection(COLLECTION).document(id);
-        ApiFuture<WriteResult> result = docRef.update("finalizada", true);
-        result.get();
+        DocumentReference tareaDocRef = db.collection(COLLECTION).document(id);
+        Tarea tarea = tareaDocRef.get().get().toObject(Tarea.class);
+
+        if (tarea != null && tarea.getAsignadoA() != null) {
+            ApiFuture<WriteResult> tareaUpdate = tareaDocRef.update("finalizada", true);
+            tareaUpdate.get();
+            
+            DocumentReference usuarioDocRef = db.collection("usuarios").document(tarea.getAsignadoA());
+            ApiFuture<DocumentSnapshot> usuarioSnapshot = usuarioDocRef.get();
+            DocumentSnapshot snapshot = usuarioSnapshot.get();
+            
+            if (snapshot.exists()) {
+                Usuario usuario = snapshot.toObject(Usuario.class);
+                if (usuario != null) {
+                    usuario.decrementarTareas();
+                    ApiFuture<WriteResult> usuarioUpdate = usuarioDocRef.update("tareasAsignadas", usuario.getTareasAsignadas());
+                    usuarioUpdate.get();
+                }
+            }
+        }
     }
+
 }

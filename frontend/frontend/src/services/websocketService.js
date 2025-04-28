@@ -15,15 +15,12 @@ export const connectWebSocket = (baseUrl = 'http://localhost:8080') => {
       const socket = new SockJS(`${baseUrl}/ws`);
       
       stompClient = Stomp.over(socket);
-      
-      // Desactivar logs de Stomp para producción
       stompClient.debug = null;
       
       stompClient.connect({}, 
         frame => {
           console.log('WebSocket conectado!', frame);
           
-          // Suscribirse a los canales
           stompClient.subscribe('/topic/tareas', message => {
             console.log('Recibido mensaje en /topic/tareas:', message.body);
             subscribers.tareas.forEach(callback => callback(message.body));
@@ -113,7 +110,6 @@ export const subscribeEventos = (callback) => {
   };
 };
 
-// Función para comprobar si WebSocket está conectado
 export const isConnected = () => {
   return stompClient !== null && stompClient.connected;
 };
