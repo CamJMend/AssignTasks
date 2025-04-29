@@ -31,6 +31,7 @@ const LeaderDashboard = () => {
       console.log("Notificación de tarea recibida:", mensaje);
       setNotificaciones(prev => [...prev, mensaje]);
       cargarTareas();
+      cargarUsuarios();
     });
     
     const unsubscribeUsuarios = subscribeUsuarios(() => {

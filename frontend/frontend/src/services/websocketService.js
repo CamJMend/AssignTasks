@@ -4,8 +4,7 @@ import Stomp from 'stompjs';
 let stompClient = null;
 const subscribers = {
   tareas: [],
-  usuarios: [],
-  eventos: []
+  usuarios: []
 };
 
 export const connectWebSocket = (baseUrl = 'http://localhost:8080') => {
@@ -29,11 +28,6 @@ export const connectWebSocket = (baseUrl = 'http://localhost:8080') => {
           stompClient.subscribe('/topic/usuarios', message => {
             console.log('Recibido mensaje en /topic/usuarios:', message.body);
             subscribers.usuarios.forEach(callback => callback(message.body));
-          });
-          
-          stompClient.subscribe('/topic/eventos', message => {
-            console.log('Recibido mensaje en /topic/eventos:', message.body);
-            subscribers.eventos.forEach(callback => callback(message.body));
           });
           
           resolve(true);
@@ -91,21 +85,6 @@ export const subscribeUsuarios = (callback) => {
     const index = subscribers.usuarios.indexOf(callback);
     if (index !== -1) {
       subscribers.usuarios.splice(index, 1);
-    }
-  };
-};
-
-export const subscribeEventos = (callback) => {
-  if (typeof callback !== 'function') {
-    console.error('El callback debe ser una función');
-    return () => {};
-  }
-  
-  subscribers.eventos.push(callback);
-  return () => {
-    const index = subscribers.eventos.indexOf(callback);
-    if (index !== -1) {
-      subscribers.eventos.splice(index, 1);
     }
   };
 };

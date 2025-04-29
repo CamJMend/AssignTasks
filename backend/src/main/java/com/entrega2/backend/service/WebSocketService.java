@@ -17,8 +17,4 @@ public class WebSocketService {
     public void enviarActualizacionUsuarios(String mensaje) {
         messagingTemplate.convertAndSend("/topic/usuarios", mensaje);
     }
-    
-    public void enviarActualizacionEventos(String mensaje) {
-        messagingTemplate.convertAndSend("/topic/eventos", mensaje);
-    }
 }
